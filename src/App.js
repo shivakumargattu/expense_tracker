@@ -9,7 +9,7 @@ import Transactions from './components/Transactions';
 const Header = styled(Typography)`
   margin: 0;
   font-size: 36px;
-  color: black;
+  color: blue;
   text-transform: uppercase;
   @media (max-width: 600px) {
     font-size: 24px;
@@ -37,20 +37,39 @@ const Component = styled(Box)`
   }
 `;
 
+const initialData = [
+  { id: 1, text: "Books", amount: -2000 },
+  { id: 2, text: "Salary", amount: 26000 },
+  { id: 3, text: "Clothes", amount: -7000 },
+  { id: 4, text: "Bonus", amount: 5000 }
+];
+
 function App() {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(initialData);
 
   useEffect(() => {
-    const localTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    setTransactions(localTransactions);
+    const localTransactions = JSON.parse(localStorage.getItem('transactions'));
+    if (localTransactions && localTransactions.length > 0) {
+      setTransactions(localTransactions);
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
+    if (transactions !== initialData) {
+      localStorage.setItem('transactions', JSON.stringify(transactions));
+    }
   }, [transactions]);
 
   const deleteTransaction = (id) => {
     setTransactions(transactions.filter(transaction => transaction.id !== id));
+  };
+
+  const addTransaction = (transaction) => {
+    if (transactions === initialData) {
+      setTransactions([transaction]);
+    } else {
+      setTransactions([transaction, ...transactions]);
+    }
   };
 
   return (
@@ -60,10 +79,9 @@ function App() {
         <Box>
           <Balance transactions={transactions} />
           <ExpencesCard transactions={transactions} />
-          
+          <NewTransaction setTransactions={addTransaction} />
         </Box>
         <Box>
-        <NewTransaction setTransactions={setTransactions} />
           <Transactions transactions={transactions} deleteTransaction={deleteTransaction} />
         </Box>
       </Component>
