@@ -1,26 +1,9 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-const Container = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  & > div {
-    margin: 10px 0;
-  }
-  @media (min-width: 600px) {
-    flex-direction: column;
-    & > div {
-      flex: 1;
-      margin: 10px;
-    }
-  }
-`;
 
 const ExpencesCard = ({ transactions = [] }) => {
   const amount = transactions.map(transaction => transaction.amount);
@@ -45,25 +28,23 @@ const ExpencesCard = ({ transactions = [] }) => {
   };
 
   return (
-    <Container>
-      <Card>
+    <Box mb={2}>
+      <Card sx={{ mb: 2 }}>
         <CardContent>
-          <Typography>Income</Typography>
+          <Typography variant="h5">Income</Typography>
           <Typography style={{ color: "green" }}>₹{income}</Typography>
         </CardContent>
       </Card>
-
       <Card>
         <CardContent>
-          <Typography>Expense</Typography>
+          <Typography variant="h5">Expense</Typography>
           <Typography style={{ color: "red" }}>₹{expense}</Typography>
         </CardContent>
       </Card>
-
-      <Box sx={{ width: '100%', height: '300px' }}>
+      <Box sx={{ width: '100%', height: '300px', mt: 2 }}>
         <Doughnut data={data} options={options} />
       </Box>
-    </Container>
+    </Box>
   );
 };
 

@@ -1,41 +1,33 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Box, Typography, styled } from "@mui/material";
-import { Balance } from './components/Balance';
+import { Box, Container, CssBaseline, Grid, Paper, Typography, ThemeProvider, createTheme } from "@mui/material";
+import  Balance  from './components/Balance';
 import ExpencesCard from './components/ExpencesCard';
 import NewTransaction from './components/NewTransaction';
-import { useState, useEffect } from 'react';
 import Transactions from './components/Transactions';
+import Navbar from './components/Navbar';
 
-const Header = styled(Typography)`
-  margin: 0;
-  font-size: 36px;
-  color: blue;
-  text-transform: uppercase;
-  @media (max-width: 600px) {
-    font-size: 24px;
-  }
-`;
 
-const Component = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  width: 90%;
-  max-width: 800px;
-  padding: 10px;
-  border-radius: 20px;
-  margin: auto;
-  & > div {
-    padding: 12px;
-  }
-  
-  @media (min-width: 600px) {
-    flex-direction: row;
-    & > div {
-      width: 50%;
-    }
-  }
-`;
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+  typography: {
+    h1: {
+      fontSize: '2rem',
+      fontWeight: 700,
+    },
+    h2: {
+      fontSize: '1.5rem',
+      fontWeight: 600,
+    },
+  },
+});
 
 const initialData = [
   { id: 1, text: "Books", amount: -2000 },
@@ -73,19 +65,31 @@ function App() {
   };
 
   return (
-    <Box className="App">
-      <Header>Expense Tracker</Header>
-      <Component>
-        <Box>
-          <Balance transactions={transactions} />
-          <ExpencesCard transactions={transactions} />
-          <NewTransaction setTransactions={addTransaction} />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Navbar />
+      <Container maxWidth="lg">
+        <Box mt={4} mb={2} textAlign="center">
+          <Typography variant="h1" color="primary">Expense Tracker</Typography>
         </Box>
-        <Box>
-          <Transactions transactions={transactions} deleteTransaction={deleteTransaction} />
-        </Box>
-      </Component>
-    </Box>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} sx={{ p: 3 }}>
+              <Balance transactions={transactions} />
+              <ExpencesCard transactions={transactions} />
+              <NewTransaction setTransactions={addTransaction} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} sx={{ p: 3 }}>
+              <Transactions transactions={transactions} deleteTransaction={deleteTransaction} />
+            </Paper>
+          </Grid>
+        </Grid>
+        
+      </Container>
+      
+    </ThemeProvider>
   );
 }
 

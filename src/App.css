@@ -1,22 +1,15 @@
 .App {
   text-align: center;
-  background-color: #FFF;
-  height: 100vh;
-  background-size: cover;
-  width: 100vw;
+  background-color: #f2f6f8;
+  min-height: 100vh;
+  padding-bottom: 60px; /* Space for the footer */
 }
 
-.transaction {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  & > h5, & > div, & > button {
-    margin-top: 10px;
-  }
+.MuiPaper-root {
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 600px) {
-  .transaction {
-    padding: 5px;
-  }
+.MuiTypography-h5 {
+  margin-bottom: 10px;
 }
