@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Expences Tracker
+![image](https://github.com/user-attachments/assets/ab123e93-76bf-4d2f-8e6f-01bfe8bb8fdc)
 
 ## Available Scripts
 
