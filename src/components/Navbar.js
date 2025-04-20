@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import  styled  from '@emotion/styled';
 
 const StyledAppBar = styled(AppBar)`
-  background: #1976d2; // Primary color
+  background: black; // Primary color
 `;
 
 const ToolbarStyled = styled(Toolbar)`
